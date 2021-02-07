@@ -12,5 +12,8 @@ public class Tester {
 
         System.out.println(Recursion.sqrt(100.0));
         System.out.println(Recursion.sqrt(2.0));
+        System.out.println(Recursion.sqrt(4.0/3));
+        System.out.println(Recursion.sqrt(Math.PI));
+        System.out.println(Recursion.sqrt(88.0));
     }
 }
