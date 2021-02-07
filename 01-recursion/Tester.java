@@ -9,5 +9,8 @@ public class Tester {
         System.out.println(Recursion.countNoDoubleLetterWords(2,"")); //650
         System.out.println(Recursion.countNoDoubleLetterWords(3,"")); //16250
         System.out.println(Recursion.countNoDoubleLetterWords(4,"")); //406250
+
+        System.out.println(Recursion.sqrt(100.0));
+        System.out.println(Recursion.sqrt(2.0));
     }
 }

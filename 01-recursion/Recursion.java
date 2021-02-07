@@ -20,4 +20,16 @@ public class Recursion {
         }
         return ans;
     }
+
+    public static double sqrt(double n){
+        return sqrt(n,1.0);
+    }
+
+    public static double sqrt(double n,double guess){
+        if(Math.abs(guess*guess-n)<=(n*1e-5)){
+            return guess;
+        } else {
+            return sqrt(n,((n/guess)+guess)/2);
+        }
+    }
 }
