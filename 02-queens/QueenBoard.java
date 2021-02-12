@@ -76,7 +76,8 @@ public class QueenBoard {
                     curr += " ";
                 }
             }
-            output += curr + "\n";
+            output += curr;
+            if(i!=board.length-1)output+="\n";
         }
         return output;
     }
@@ -84,7 +85,7 @@ public class QueenBoard {
     public boolean solve(){
         for(int i=0;i<board.length;i++){
             if(board[i][0]!=0){
-                throw new IllegalArgumentException();
+                throw new IllegalStateException();
             }
         }
         return solve(0);
@@ -107,7 +108,7 @@ public class QueenBoard {
     public int countSolutions(){
         for(int i=0;i<board.length;i++){
             if(board[i][0]!=0){
-                throw new IllegalArgumentException();
+                throw new IllegalStateException();
             }
         }
         return countSolutions(0);
