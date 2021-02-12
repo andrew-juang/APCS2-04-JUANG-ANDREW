@@ -22,6 +22,21 @@ public class QueenBoard {
 
     private void removeQueen(int r, int c){
         board[r][c]=0;
+        for(int i=0;i<c;i++){
+            if(board[r][i]>0){
+                board[i][j]--;
+            }
+        }
+        for(int i=r,int j=c;i>=0&&j>=0;i--,j--){
+            if(board[i][j]>0){
+                board[i][j]--;
+            }
+        }
+        for(int i=r,int j=c;j>=0&&i<board.length;i++, j--){
+            if(board[i][j]>0){
+                board[i][j]--;
+            }
+        }
     }
 
     public QueenBoard(int size){
