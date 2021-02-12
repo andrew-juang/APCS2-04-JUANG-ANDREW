@@ -76,7 +76,7 @@ public class QueenBoard {
                     curr += " ";
                 }
             }
-            output = output + curr + "\n";
+            output += curr + "\n";
         }
         return output;
     }
@@ -87,12 +87,11 @@ public class QueenBoard {
 
     public boolean solve(int col){
         if(col>=board.length){
-            System.out.println(board.toString());
             return true;
         } else {
             for(int row=0;row<board.length;row++){
                 if(addQueen(row,col)){
-                    solve(col+1);
+                    if(solve(col+1))return true;
                     removeQueen(row,col);
                 }
             }
@@ -101,6 +100,21 @@ public class QueenBoard {
     }
 
     public int countSolutions(){
-        return 0;
+        return countSolutions(0);
+    }
+
+    public int countSolutions(int col){
+        int ans = 0;
+        if(col>=board.length){
+            return 1;
+        } else {
+            for(int row=0;row<board.length;row++){
+                if(addQueen(row,col)){
+                    ans += countSolutions(col+1);
+                    removeQueen(row,col);
+                }
+            }
+        }
+        return ans;
     }
 }
