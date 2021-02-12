@@ -2,17 +2,18 @@ public class QueenBoard {
     private int[][]board;
 
     private boolean addQueen(int r, int c){
-        for(int i=0;i<c;i++){
+        int i,j;
+        for(i=0;i<c;i++){
             if(board[r][i]==-1){
                 return false;
             }
         }
-        for(int i=r,int j=c;i>=0&&j>=0;i--,j--){
+        for(i=r,j=c;i>=0&&j>=0;i--,j--){
             if(board[i][j]==-1){
                 return false;
             }
         }
-        for(int i=r,int j=c;j>=0&&i<board.length;i++, j--){
+        for(i=r,j=c;j>=0&&i<board.length;i++, j--){
             if(board[i][j]==-1){
                 return false;
             }
@@ -21,21 +22,16 @@ public class QueenBoard {
     }
 
     private void removeQueen(int r, int c){
+        int i,j;
         board[r][c]=0;
-        for(int i=0;i<c;i++){
-            if(board[r][i]>0){
-                board[i][j]--;
-            }
+        for(i=0;i<c;i++){
+            board[r][i]--;
         }
-        for(int i=r,int j=c;i>=0&&j>=0;i--,j--){
-            if(board[i][j]>0){
-                board[i][j]--;
-            }
+        for(i=r,j=c;i>=0&&j>=0;i--,j--){
+            board[i][j]--;
         }
-        for(int i=r,int j=c;j>=0&&i<board.length;i++, j--){
-            if(board[i][j]>0){
-                board[i][j]--;
-            }
+        for(i=r,j=c;j>=0&&i<board.length;i++, j--){
+            board[i][j]--;
         }
     }
 
@@ -65,7 +61,6 @@ public class QueenBoard {
     }
 
     public boolean solve(){
-        if()
         return true;
     }
 
