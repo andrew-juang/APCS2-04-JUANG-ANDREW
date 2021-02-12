@@ -84,8 +84,10 @@ public class QueenBoard {
 
     public boolean solve(){
         for(int i=0;i<board.length;i++){
-            if(board[i][0]!=0){
-                throw new IllegalStateException();
+            for(int j=0;j<board.length;j++){
+                if(board[i][j]!=0){
+                    throw new IllegalStateException();
+                }
             }
         }
         return solve(0);
@@ -107,8 +109,10 @@ public class QueenBoard {
 
     public int countSolutions(){
         for(int i=0;i<board.length;i++){
-            if(board[i][0]!=0){
-                throw new IllegalStateException();
+            for(int j=0;j<board.length;j++){
+                if(board[i][j]!=0){
+                    throw new IllegalStateException();
+                }
             }
         }
         return countSolutions(0);
