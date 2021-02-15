@@ -2,7 +2,7 @@ import java.util.*;
 public class QueenBoard {
     private int[][]board;
 
-    public boolean addQueen(int r, int c){
+    private boolean addQueen(int r, int c){
         int i,j;
         boolean output = true;
         if(board[r][c]>0){
@@ -32,7 +32,7 @@ public class QueenBoard {
         return output;
     }
 
-    public void removeQueen(int r, int c){
+    private void removeQueen(int r, int c){
         int i,j;
         board[r][c]=0;
         for(i=0;i<board.length;i++){
