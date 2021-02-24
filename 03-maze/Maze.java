@@ -20,7 +20,20 @@ public class Maze{
     So you don't have to check for out of bounds!
     */
     public Maze(String filename) throws FileNotFoundException{
-        //COMPLETE CONSTRUCTOR
+        ArrayList<String> lines = new ArrayList<String>();
+        File f = new File(filename+".txt");
+        Scanner s = new Scanner(f);
+        while(s.hasNextLine()){
+            String line = s.nextLine();
+            lines.add(line);
+        }
+        char[][]maze = new char[lines.size()][lines.get(0).length()];
+        for(int i=0;i<lines.size();i++){
+            for(int j=0;j<lines.get(0).length();j++){
+                maze[i][j]=lines.get(i).charAt(j);
+            }
+        }
+        animate = false;
     }
 
     private void wait(int millis){
