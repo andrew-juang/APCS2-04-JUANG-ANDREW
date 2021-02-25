@@ -39,14 +39,12 @@ public class Maze{
         //erase terminal
         System.out.println("\033[2J");
     }
+
     public static void gotoTop(){
         //go to top left of screen
         System.out.println("\033[1;1H");
     }
 
-    /*Return the string that represents the maze.
-    It should look like the text file with some characters replaced.
-    */
     public String toString(){
         String val = "";
         for(int i=0;i<maze.length;i++){
@@ -58,42 +56,54 @@ public class Maze{
         return val;
     }
 
-    /*Wrapper Solve Function returns the helper function
-    Note the helper function has the same name, but different parameters.
-    Since the constructor exits when the file is not found or is missing an E or S, we can assume it exists.
-    */
     public int solve(){
-        //only clear the terminal if you are running animation
         if(animate){
             clearTerminal();
         }
-        //start solving at the location of the s.
-        //return solve(???,???);
+        for(int i=0;i<maze.length;i++){
+            for(int j=0;j<maze[0].length;j++){
+                if(maze[i][j]=='S'){
+                    return solve(i,j,0);
+                }
+            }
+        }
         return 0;
     }
 
-    /*
-    Recursive Solve function:
-
-    A solved maze has a path marked with '@' from S to E.
-
-    Returns the number of @ symbols from S to E when the maze is solved,
-    Returns -1 when the maze has no solution.
-
-    Postcondition:
-    The S and 'E' remain the same.
-    All visited spots that were not part of the solution are changed to '.'
-    All visited spots that are part of the solution are changed to '@'
-    */
-    private int solve(int row, int col){ //you can add more parameters since this is private
-        //automatic animation! You are welcome.
+    private int solve(int row, int col, int cnt){ //you can add more parameters since this is private
         if(animate){
             gotoTop();
             System.out.println(this);
             wait(50);
         }
-
-        //COMPLETE SOLVE
-        return -1; //so it compiles
+        if(maze[row-1][col]=='E'||maze[row+1][col]=='E'||maze[row][col+1]=='E'||maze[row][col-1]=='E'){
+            return cnt;
+        } else {
+            if(maze[row-1][col]==' '){
+                maze[row-1][col]='@';
+                return solve(row-1,col,cnt+1);
+            } else if(maze[row+1][col]==' '){
+                maze[row+1][col]='@';
+                return solve(row+1,col,cnt+1);
+            } else if(maze[row][col+1]==' '){
+                maze[row][col+1]='@';
+                return solve(row,col+1,cnt+1);
+            } else if(maze[row][col-1]==' '){
+                maze[row][col-1]='@';
+                return solve(row,col-1,cnt+1);
+            } else {
+                maze[row][col]='.';
+                if(maze[row-1][col]=='@'){
+                    return solve(row-1,col,cnt-1);
+                } else if(maze[row+1][col]=='@'){
+                    return solve(row+1,col,cnt-1);
+                } else if(maze[row][col+1]=='@'){
+                    return solve(row,col+1,cnt-1);
+                } else if(maze[row][col-1]=='@'){
+                    return solve(row,col-1,cnt-1);
+                }
+            }
+        }
+        return -1;
     }
 }
