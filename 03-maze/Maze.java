@@ -4,30 +4,17 @@ import java.io.*;
 public class Maze{
 
     private char[][]maze;
-    private boolean animate;//false by default
+    private boolean animate;
 
-    /*Constructor loads a maze text file, and sets animate to false by default.
-    When the file is not found then:
-    throw a FileNotFoundException
-
-    You may assume the file contains a rectangular ascii maze, made with the following 4 characters:
-    '#' - Walls - locations that cannot be moved onto
-    ' ' - Empty Space - locations that can be moved onto
-    'E' - the location of the goal (exactly 1 per file)
-    'S' - the location of the start(exactly 1 per file)
-
-    You may also assume the maze has a border of '#' around the edges.
-    So you don't have to check for out of bounds!
-    */
     public Maze(String filename) throws FileNotFoundException{
         ArrayList<String> lines = new ArrayList<String>();
-        File f = new File(filename+".txt");
+        File f = new File(filename);
         Scanner s = new Scanner(f);
         while(s.hasNextLine()){
             String line = s.nextLine();
             lines.add(line);
         }
-        char[][]maze = new char[lines.size()][lines.get(0).length()];
+        maze = new char[lines.size()][lines.get(0).length()];
         for(int i=0;i<lines.size();i++){
             for(int j=0;j<lines.get(0).length();j++){
                 maze[i][j]=lines.get(i).charAt(j);
@@ -61,7 +48,14 @@ public class Maze{
     It should look like the text file with some characters replaced.
     */
     public String toString(){
-        return "WRITE THIS METHOD";
+        String val = "";
+        for(int i=0;i<maze.length;i++){
+            for(int j=0;j<maze[0].length;j++){
+                val += maze[i][j];
+            }
+            if(i!=maze.length-1)val += "\n";
+        }
+        return val;
     }
 
     /*Wrapper Solve Function returns the helper function
