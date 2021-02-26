@@ -63,6 +63,7 @@ public class Maze{
         for(int i=0;i<maze.length;i++){
             for(int j=0;j<maze[0].length;j++){
                 if(maze[i][j]=='S'){
+                    maze[i][j]='@';
                     return solve(i,j,0);
                 }
             }
@@ -70,14 +71,14 @@ public class Maze{
         return 0;
     }
 
-    private int solve(int row, int col, int cnt){ //you can add more parameters since this is private
+    private int solve(int row, int col, int cnt){
         if(animate){
             gotoTop();
             System.out.println(this);
             wait(50);
         }
         if(maze[row-1][col]=='E'||maze[row+1][col]=='E'||maze[row][col+1]=='E'||maze[row][col-1]=='E'){
-            return cnt;
+            return cnt+1;
         } else {
             if(maze[row-1][col]==' '){
                 maze[row-1][col]='@';
