@@ -41,6 +41,7 @@ public class MazeGenerator {
                 generate(maze,nr,nc);
             }
         }
+        return;
     }
 
     private static int count_neb(char[][]maze,int row,int col){
