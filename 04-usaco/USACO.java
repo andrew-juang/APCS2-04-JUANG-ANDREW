@@ -2,6 +2,9 @@ import java.util.*;
 import java.io.*;
 
 public class USACO {
+
+    private static int[][][]pasture = new int[7][5][6];
+
     public static int bronze (String filename) throws FileNotFoundException {
         //read in input
         File f = new File(filename);
@@ -38,7 +41,38 @@ public class USACO {
         return agg_depth * 72 * 72;
     }
 
-    /*public static int silver (String filename) {
+    public static int silver (String filename) throws FileNotFoundException {
+        //read in input
+        File f = new File(filename);
+        Scanner s = new Scanner(f);
+        int N=s.nextInt(),M=s.nextInt(),T=s.nextInt();
+        for(int i=0;i<N;i++){
+            String line = s.next();
+            for(int j=0;j<M;j++){
+                if(line.charAt(j)=='.')pasture[0][i][j]=0;
+                if(line.charAt(j)=='*')pasture[0][i][j]=-1;
+            }
+        }
+        int R1=s.nextInt(),C1=s.nextInt(),R2=s.nextInt(),C2=s.nextInt();
+        pasture[0][R1-1][C1-1] = 1;
+        for(int i=1;i<=T;i++){
+            nextPasture(i,N,M);
+        }
+        return pasture[T][R2-1][C2-1];
+    }
 
-    }*/
+    private static void nextPasture(int step,int N, int M) {
+        for(int i=0;i<N;i++){
+            for(int j=0;j<M;j++){
+                if(pasture[step-1][i][j]==-1){
+                    pasture[step][i][j]=-1;
+                    continue;
+                }
+                if(i>0)pasture[step][i][j]+=Math.max(0,pasture[step-1][i-1][j]);
+                if(j>0)pasture[step][i][j]+=Math.max(0,pasture[step-1][i][j-1]);
+                pasture[step][i][j]+=Math.max(0,pasture[step-1][i+1][j]);
+                pasture[step][i][j]+=Math.max(0,pasture[step-1][i][j+1]);
+            }
+        }
+    }
 }
