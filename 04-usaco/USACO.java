@@ -3,7 +3,7 @@ import java.io.*;
 
 public class USACO {
 
-    private static int[][][]pasture = new int[7][5][6];
+    private static long[][][]pasture = new long[20][150][150];
 
     public static int bronze (String filename) throws FileNotFoundException {
         //read in input
@@ -41,7 +41,7 @@ public class USACO {
         return agg_depth * 72 * 72;
     }
 
-    public static int silver (String filename) throws FileNotFoundException {
+    public static long silver (String filename) throws FileNotFoundException {
         //read in input
         File f = new File(filename);
         Scanner s = new Scanner(f);
@@ -54,7 +54,9 @@ public class USACO {
             }
         }
         int R1=s.nextInt(),C1=s.nextInt(),R2=s.nextInt(),C2=s.nextInt();
+        //set starting location as 1
         pasture[0][R1-1][C1-1] = 1;
+        //iterate through number of seconds
         for(int i=1;i<=T;i++){
             nextPasture(i,N,M);
         }
