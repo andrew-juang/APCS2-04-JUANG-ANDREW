@@ -21,7 +21,7 @@ public class Preliminary {
                   data[j] = temp;
                   i--;
               }
-              if(data[j]<pivot){
+              if(data[j]<=pivot){
                   j++;
               }
           }
