@@ -7,7 +7,6 @@ public class Preliminary {
           Random rand = new Random();
           int randind = rand.nextInt((end-start)+1)+start;
           int pivot = data[randind];
-          System.out.println(pivot);
           //swap pivot to front
           int temp = data[start];
           data[start] = data[randind];
