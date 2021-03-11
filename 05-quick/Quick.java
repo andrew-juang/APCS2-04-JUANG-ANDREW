@@ -10,7 +10,7 @@ public class Quick {
         int temp = data[lo];
         data[lo] = data[pivotind];
         data[pivotind] = temp;
-        int i = hi,j=lo+1;
+        int i = hi,j=lo+1,numequal=0;
         while(j<=i){
             if(data[j]>pivot){
                 temp = data[i];
@@ -20,6 +20,17 @@ public class Quick {
             }
             if(data[j]<=pivot){
                 j++;
+            }
+            if(data[j]==pivot){
+                if(numequal%2==1){
+                    temp = data[i];
+                    data[i] = data[j];
+                    data[j] = temp;
+                    i--;
+                } else {
+                    j++;
+                }
+                numequal++;
             }
         }
         temp = data[i];
