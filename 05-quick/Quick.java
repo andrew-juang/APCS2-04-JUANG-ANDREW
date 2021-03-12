@@ -12,6 +12,15 @@ public class Quick {
         data[pivotind] = temp;
         int i = hi,j=lo+1,numequal=0;
         while(j<=i){
+            if(data[j]==pivot){
+                if(numequal%2==0){
+                    temp = data[i];
+                    data[i] = data[j];
+                    data[j] = temp;
+                    i--;
+                }
+                numequal++;
+            }
             if(data[j]>pivot){
                 temp = data[i];
                 data[i] = data[j];
@@ -20,17 +29,6 @@ public class Quick {
             }
             if(data[j]<=pivot){
                 j++;
-            }
-            if(data[j]==pivot){
-                if(numequal%2==1){
-                    temp = data[i];
-                    data[i] = data[j];
-                    data[j] = temp;
-                    i--;
-                } else {
-                    j++;
-                }
-                numequal++;
             }
         }
         temp = data[i];
@@ -43,7 +41,7 @@ public class Quick {
         if(a>=b&&a<=c||a>=c&&a<=b)return a;
         if(b>=c&&b<=a||b>=a&&b<=c)return b;
         if(c>=a&&c<=b||c>=b&&c<=a)return c;
-        return -1;
+        return 0;
     }
 
     /*return the value that is the kth smallest value of the array.
@@ -51,10 +49,22 @@ public class Quick {
     *@param k is 0 to data.length-1 inclusive
     *@postcondition The array can be modified. (If we did not want to modify the array, we could make a copy before we start the process)
     */
+    public static int quickselect(int[] data, int k){
+        return quickselect(data,0,data.length-1,k);
+    }
+
+    public static int quickselect(int[]data, int lo, int hi, int k){
+        int partition = partition(data,lo,hi);
+        if(partition == k-1){
+            return data[partition];
+        } else if (partition < k-1){
+            return quickselect(data,partition+1,hi,k);
+        } else {
+            return quickselect(data,lo,partition-1,k);
+        }
+    }
 
     /*
-    public static int quickselect(int []data, int k){ }
-
     public static int[] partitionDutch(int[]data,int lo, int hi){
         //THIS IS OPTIONAL METHOD, it will make your quicksort faster.
         //return an int array: {lt,gt}
