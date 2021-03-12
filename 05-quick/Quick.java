@@ -55,9 +55,9 @@ public class Quick {
 
     public static int quickselect(int[]data, int lo, int hi, int k){
         int partition = partition(data,lo,hi);
-        if(partition == k-1){
+        if(partition == k){
             return data[partition];
-        } else if (partition < k-1){
+        } else if (partition < k){
             return quickselect(data,partition+1,hi,k);
         } else {
             return quickselect(data,lo,partition-1,k);
@@ -68,10 +68,18 @@ public class Quick {
     public static int[] partitionDutch(int[]data,int lo, int hi){
         //THIS IS OPTIONAL METHOD, it will make your quicksort faster.
         //return an int array: {lt,gt}
+    }*/
+
+    public static void quicksort(int[]data){
+        quicksort(data,0,data.length-1);
     }
 
-    public static void quicksort(int[]){
-        //your code.
-    }*/
+    public static void quicksort(int[]data,int lo, int hi){
+        if(lo<hi){
+            int partition = partition(data,lo,hi);
+            quicksort(data,lo,partition-1);
+            quicksort(data,partition+1,hi);
+        }
+    }
 
 }
