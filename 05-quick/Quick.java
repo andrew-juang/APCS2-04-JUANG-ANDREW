@@ -3,13 +3,12 @@ import java.io.*;
 
 public class Quick {
     public static int partition(int[] data ,int lo, int hi){
-        int pivot = findmedian(data[lo],data[hi],data[(lo+hi)/2]),pivotind=0;
-        if(data[lo]==pivot)pivotind=lo;
-        if(data[hi]==pivot)pivotind=hi;
-        if(data[(lo+hi)/2]==pivot)pivotind=(lo+hi)/2;
+        Random rand = new Random();
+        int randind = rand.nextInt((hi-lo)+1)+lo;
+        int pivot = data[randind];
         int temp = data[lo];
-        data[lo] = data[pivotind];
-        data[pivotind] = temp;
+        data[lo] = data[randind];
+        data[randind] = temp;
         int i = hi,j=lo+1,numequal=0;
         while(j<=i){
             if(data[j]==pivot){
@@ -64,8 +63,7 @@ public class Quick {
         }
     }
 
-    /*
-    public static int[] partitionDutch(int[]data,int lo, int hi){
+    /*public static int[] partitionDutch(int[]data,int lo, int hi){
         //THIS IS OPTIONAL METHOD, it will make your quicksort faster.
         //return an int array: {lt,gt}
     }*/
