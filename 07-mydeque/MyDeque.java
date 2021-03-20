@@ -19,9 +19,11 @@ public class MyDeque<E> {
         size = initialCapacity;
         data = (E[])new Object[initialCapacity];
     }
+
     public int size(){
         return data.size;
     }
+
     public String toString(){ }
     public void addFirst(E element){ }
     public void addLast(E element){ }
@@ -29,4 +31,12 @@ public class MyDeque<E> {
     public E removeLast(){ }
     public E getFirst(){ }
     public E getLast(){ }
+
+    private boolean isFull(){
+        return ((end==size-1&&start==0)||start==rear+1);
+    }
+
+    private boolean isEmpty(){
+        return start==-1;
+    }
 }
