@@ -7,7 +7,7 @@ public class MyDeque<E> {
 
     @SuppressWarnings("unchecked")
     public MyDeque(){
-        start = -1;
+        start = 0;
         end = 0;
         size = 0;
         data = (E[])new Object[10];
@@ -15,7 +15,7 @@ public class MyDeque<E> {
 
     @SuppressWarnings("unchecked")
     public MyDeque(int initialCapacity){
-        start = -1;
+        start = 0;
         end = 0;
         size = 0;
         data = (E[])new Object[initialCapacity];
@@ -26,29 +26,22 @@ public class MyDeque<E> {
     }
 
     public String toString(){
-        if(isEmpty()) return "[]";
-        String result = "[";
-        if(start < end){
-            for(int i=(start)%data.length;i!=end;i=(i+1)%data.length) {
-                result += data[i] + ", ";
+        if(isEmpty()) return "{}";
+        String result = "{";
+        for(int i=start; i<start+size; i++) {
+            result += data[i%data.length];
+            if(i!=start+size-1){
+                result += ", ";
             }
-            return result + data[end] + "]";
-        } else {
-            result += data[start];
-            for(int i=(start+1)%data.length;i!=end+1;i=(i+1)%data.length) {
-                result += ", " + data[i];
-            }
-            return result + "]";
         }
+        result += "}";
+        return result;
     }
 
     public void addFirst(E element){
         if(element == null) throw new NullPointerException();
-        if (isFull()) resize();
-        if(start==-1){
-            start = 0;
-            end = 0;
-        } else if (start==0){
+        if (isFull()||size==0) resize();
+        if (start==0){
             start = data.length-1;
         } else {
             start--;
@@ -59,14 +52,9 @@ public class MyDeque<E> {
 
     public void addLast(E element){
         if(element == null) throw new NullPointerException();
-        if (isFull()) resize();
-        if(start==-1){
-            start = 0;
-            end = 0;
-        } else {
-            end++;
-        }
+        if (isFull()||size==0) resize();
         data[end] = element;
+        end++;
         size++;
     }
 
@@ -75,14 +63,12 @@ public class MyDeque<E> {
             throw new NoSuchElementException();
         }
         E value = data[start];
-        if(start==0&&end==0){
-            start = -1;
-            end = 0;
-        } else if(start==data.length-1) {
+        if(start==data.length-1) {
             start = 0;
         } else {
             start++;
         }
+        size--;
         return value;
     }
 
@@ -90,13 +76,15 @@ public class MyDeque<E> {
         if(isEmpty()){
             throw new NoSuchElementException();
         }
-        E value = data[end];
-        if(start==0&&end==0){
-            start = -1;
-            end = 0;
-        } else {
+        E value;
+        if(end!=0){
+            value = data[end-1];
             end--;
+        } else {
+            value = data[data.length-1];
+            end = data.length-1;
         }
+        size--;
         return value;
     }
 
@@ -111,28 +99,30 @@ public class MyDeque<E> {
         if(isEmpty()){
             throw new NoSuchElementException();
         }
-        return data[end];
+        if(end!=0){
+            return data[end-1];
+        } else {
+            return data[data.length-1];
+        }
     }
 
     private boolean isFull(){
-        return ((end==data.length-1&&start==0)||start==end+1);
+        return size == data.length-1 || data.length==0;
     }
 
     private boolean isEmpty(){
-        return start==-1;
+        return size==0;
     }
 
     @SuppressWarnings("unchecked")
     private void resize(){
-        E[] newarr = (E[]) new Object[2*data.length];
+        E[] newarr = (E[]) new Object[2*data.length+10];
         int ind = 0;
-        for(int i=(start)%data.length;i!=end;i=(i+1)%data.length) {
-            newarr[ind] = data[i];
-            ind++;
+        for(int i=start; i<start+size; i++){
+            newarr[i-start] = data[i%data.length];
         }
-        newarr[ind] = data[end];
         start = 0;
-        end = data.length-1;
+        end = size;
         data = newarr;
     }
 }
