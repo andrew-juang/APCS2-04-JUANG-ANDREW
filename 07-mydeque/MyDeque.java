@@ -71,8 +71,26 @@ public class MyDeque<E> {
         data[end] = element;
         size++;
     }
-    /*public E removeFirst(){ }
-    public E removeLast(){ }
+
+    public E removeFirst(){
+        if(isEmpty()){
+            throw new NoSuchElementException("Empty Deque");
+        }
+        E value = data[start];
+        if(start==0&&end==0){
+            start = -1;
+            end = -1;
+        } else if(start==data.length-1) {
+            start = 0;
+        } else {
+            start++;
+        }
+        return value;
+    }
+
+    public E removeLast(){
+        
+    }
     public E getFirst(){ }
     public E getLast(){ }*/
 
