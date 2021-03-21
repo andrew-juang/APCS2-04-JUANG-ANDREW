@@ -101,8 +101,20 @@ public class MyDeque<E> {
         }
         return value;
     }
-    /*public E getFirst(){ }
-    public E getLast(){ }*/
+
+    public E getFirst(){
+        if(isEmpty()){
+            throw new NoSuchElementException("Empty Deque");
+        }
+        return data[start];
+    }
+
+    public E getLast(){
+        if(isEmpty()){
+            throw new NoSuchElementException("Empty Deque");
+        }
+        return data[end];
+    }
 
     private boolean isFull(){
         return ((end==data.length-1&&start==0)||start==end+1);
