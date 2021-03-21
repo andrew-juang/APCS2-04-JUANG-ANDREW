@@ -79,7 +79,7 @@ public class MyDeque<E> {
         E value = data[start];
         if(start==0&&end==0){
             start = -1;
-            end = -1;
+            end = 0;
         } else if(start==data.length-1) {
             start = 0;
         } else {
@@ -89,9 +89,19 @@ public class MyDeque<E> {
     }
 
     public E removeLast(){
-        
+        if(isEmpty()){
+            throw new NoSuchElementException("Empty Deque");
+        }
+        E value = data[end];
+        if(start==0&&end==0){
+            start = -1;
+            end = 0;
+        } else {
+            end--;
+        }
+        return value;
     }
-    public E getFirst(){ }
+    /*public E getFirst(){ }
     public E getLast(){ }*/
 
     private boolean isFull(){
