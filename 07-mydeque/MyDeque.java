@@ -52,9 +52,21 @@ public class MyDeque<E> {
         size++;
     }
 
-    /*
-    public void addLast(E element){ }
-    public E removeFirst(){ }
+    public void addLast(E element){
+        if(isFull()){
+            resize();
+        }
+        if(start==-1){
+            start = 0;
+            end = 0;
+        } else {
+            end++;
+        }
+        data[end] = element;
+        size++;
+
+    }
+    /*public E removeFirst(){ }
     public E removeLast(){ }
     public E getFirst(){ }
     public E getLast(){ }*/
