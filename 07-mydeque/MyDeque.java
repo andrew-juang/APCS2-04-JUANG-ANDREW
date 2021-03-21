@@ -28,12 +28,18 @@ public class MyDeque<E> {
     public String toString(){
         if(isEmpty()) return "[]";
         String result = "[";
-        result += data[start];
-        for(int i=(start+1)%data.length;i!=end+1;i=(i+1)%data.length) {
-            result += ", " + data[i];
+        if(start < end){
+            for(int i=(start)%data.length;i!=end;i=(i+1)%data.length) {
+                result += data[i] + ", ";
+            }
+            return result + data[end] + "]";
+        } else {
+            result += data[start];
+            for(int i=(start+1)%data.length;i!=end+1;i=(i+1)%data.length) {
+                result += ", " + data[i];
+            }
+            return result + "]";
         }
-        return result + "]";
-
     }
 
     public void addFirst(E element){
@@ -64,7 +70,6 @@ public class MyDeque<E> {
         }
         data[end] = element;
         size++;
-
     }
     /*public E removeFirst(){ }
     public E removeLast(){ }
