@@ -43,9 +43,8 @@ public class MyDeque<E> {
     }
 
     public void addFirst(E element){
-        if (isFull()){
-            resize();
-        }
+        if(element == null) throw new NullPointerException();
+        if (isFull()) resize();
         if(start==-1){
             start = 0;
             end = 0;
@@ -59,9 +58,8 @@ public class MyDeque<E> {
     }
 
     public void addLast(E element){
-        if(isFull()){
-            resize();
-        }
+        if(element == null) throw new NullPointerException();
+        if (isFull()) resize();
         if(start==-1){
             start = 0;
             end = 0;
@@ -74,7 +72,7 @@ public class MyDeque<E> {
 
     public E removeFirst(){
         if(isEmpty()){
-            throw new NoSuchElementException("Empty Deque");
+            throw new NoSuchElementException();
         }
         E value = data[start];
         if(start==0&&end==0){
@@ -90,7 +88,7 @@ public class MyDeque<E> {
 
     public E removeLast(){
         if(isEmpty()){
-            throw new NoSuchElementException("Empty Deque");
+            throw new NoSuchElementException();
         }
         E value = data[end];
         if(start==0&&end==0){
@@ -104,14 +102,14 @@ public class MyDeque<E> {
 
     public E getFirst(){
         if(isEmpty()){
-            throw new NoSuchElementException("Empty Deque");
+            throw new NoSuchElementException();
         }
         return data[start];
     }
 
     public E getLast(){
         if(isEmpty()){
-            throw new NoSuchElementException("Empty Deque");
+            throw new NoSuchElementException();
         }
         return data[end];
     }
