@@ -119,7 +119,7 @@ public class MyDeque<E> {
 
     @SuppressWarnings("unchecked")
     private void resize(){
-        E[] newarr = (E[]) new Object[2*data.length+1];
+        E[] newarr = (E[]) new Object[2*data.length+10];
         int ind = 0;
         for(int i=start; i<start+size; i++){
             newarr[i-start] = data[i%data.length];
