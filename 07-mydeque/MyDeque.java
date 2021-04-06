@@ -40,7 +40,7 @@ public class MyDeque<E> {
 
     public void addFirst(E element){
         if(element == null) throw new NullPointerException();
-        if (isFull()||size==0) resize();
+        if (isFull()) resize();
         if (start==0){
             start = data.length-1;
         } else {
@@ -52,7 +52,10 @@ public class MyDeque<E> {
 
     public void addLast(E element){
         if(element == null) throw new NullPointerException();
-        if (isFull()||size==0) resize();
+        if (isFull()) resize();
+        if(end==data.length){
+            end = 0;
+        }
         data[end] = element;
         end++;
         size++;
@@ -116,7 +119,7 @@ public class MyDeque<E> {
 
     @SuppressWarnings("unchecked")
     private void resize(){
-        E[] newarr = (E[]) new Object[2*data.length+10];
+        E[] newarr = (E[]) new Object[2*data.length+1];
         int ind = 0;
         for(int i=start; i<start+size; i++){
             newarr[i-start] = data[i%data.length];
