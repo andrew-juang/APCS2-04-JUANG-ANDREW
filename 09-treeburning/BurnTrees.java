@@ -7,10 +7,6 @@ public class BurnTrees{
     private static int ASH = 3;
     private static int SPACE = 0;
 
-
-    /*DO NOT UPDATE THIS
-    *PLEASE READ SO YOU SEE HOW THE SIMULATION IS SUPPOSED TO WORK!!!
-    */
     public int run(){
         while(!done()){
             tick();
@@ -18,42 +14,56 @@ public class BurnTrees{
         return getTicks();
     }
 
-    /*Initialize the simulation.
-    *If you add more instance variables you can add more here,
-    *otherwise it is complete
-    */
     public BurnTrees(int width,int height, double density){
         map = new int[height][width];
         for(int r=0; r<map.length; r++ )
         for(int c=0; c<map[r].length; c++ )
         if(Math.random() < density)
         map[r][c]=2;
+        ticks = 0;
         start();//set the left column on fire.
     }
 
-    /*Determine if the simulation is still burning
-    *@return true if any fires are still burning, false otherwise
-    */
     public boolean done(){
-        //YOU MUST IMPLEMENT THIS
+        int[] dx = {0, -1, 0, 1};
+        int[] dy = {1, 0, -1, 0};
+        for(int r=0;r<map.length;r++){
+            for(int c=0;c<map[r].length;c++){
+                if(map[r][c]==FIRE){
+                    for(int i=0;i<4;i++){
+                        if(r+dx[i]>=0&&r+dx[i]<map.length&&c+dy[i]>=0&&c+dy[i]<map[0].length){
+                            if(map[r+dx[i]][c+dy[i]]==TREE){
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return true;
     }
 
-
-    /*This is the core of the simulation. All of the logic for advancing to the next round goes here.
-    *All existing fires spread new fires, and turn to ash
-    *new fires should remain fire, and not spread.
-    */
     public void tick(){
-        ticks++;
-        //YOU MUST IMPLEMENT THIS
+        int[] dx = {0, -1, 0, 1};
+        int[] dy = {1, 0, -1, 0};
+        for(int c=0;c<map[0].length;c++){
+            for(int r=0;r<map.length;r++){
+                if(map[r][c]==FIRE){
+                    for(int i=0;i<4;i++){
+                        if(r+dx[i]>=0&&r+dx[i]<map.length&&c+dy[i]>=0&&c+dy[i]<map[0].length){
+                            if(map[r+dx[i]][c+dy[i]]==TREE){
+                                map[r+dx[i]][c+dy[i]]=FIRE;
+                            }
+                        }
+                    }
+                    map[r][c]=ASH;
+                }
+            }
+        }
     }
 
-    /*
-    *Sets the trees in the left column of the forest on fire
-    */
     public void start(){
-        //If you add more instance variables you can add more here,
-        //otherwise it is complete.
+        ticks=1;
         for(int i = 0; i < map.length; i++){
             if(map[i][0]==TREE){
                 map[i][0]=FIRE;
@@ -61,16 +71,10 @@ public class BurnTrees{
         }
     }
 
-
-
-
-
-    /*DO NOT UPDATE THIS*/
     public int getTicks(){
         return ticks;
     }
 
-    /*DO NOT UPDATE THIS*/
     public String toString(){
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < map.length; i++) {
@@ -88,7 +92,7 @@ public class BurnTrees{
         }
         return builder.toString();
     }
-    /*DO NOT UPDATE THIS*/
+
     public String toStringColor(){
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < map.length; i++) {
@@ -107,8 +111,6 @@ public class BurnTrees{
         return builder.toString()+ticks+"\n";
     }
 
-
-    /*DO NOT UPDATE THIS*/
     public int animate(int delay) {
         System.out.print(Text.CLEAR_SCREEN);
         System.out.println(Text.go(1,1)+toStringColor());
@@ -121,7 +123,6 @@ public class BurnTrees{
         return getTicks();
     }
 
-    /*DO NOT UPDATE THIS*/
     public int outputAll(){
         System.out.println(toString());
         while(!done()){
@@ -130,7 +131,6 @@ public class BurnTrees{
         }
         return getTicks();
     }
-
 
     public static void main(String[]args)  throws InterruptedException{
         int WIDTH = 20;
@@ -148,8 +148,8 @@ public class BurnTrees{
         BurnTrees b = new BurnTrees(WIDTH,HEIGHT,DENSITY);
 
 
-        System.out.println(b.animate(DELAY));//animate all screens and print the final answer
-        //System.out.println(b.outputAll());//print all screens and the final answer
+        //System.out.println(b.animate(DELAY));//animate all screens and print the final answer
+        System.out.println(b.outputAll());//print all screens and the final answer
     }
 
 
