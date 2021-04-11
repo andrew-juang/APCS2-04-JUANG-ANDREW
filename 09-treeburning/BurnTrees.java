@@ -44,6 +44,13 @@ public class BurnTrees{
     }
 
     public void tick(){
+        int[][]mapcopy=new int[map.length][map[0].length];
+        ticks++;
+        for(int i=0;i<map.length;i++){
+            for(int j=0;j<map[0].length;j++){
+                mapcopy[i][j]=map[i][j];
+            }
+        }
         int[] dx = {0, -1, 0, 1};
         int[] dy = {1, 0, -1, 0};
         for(int c=0;c<map[0].length;c++){
@@ -52,14 +59,15 @@ public class BurnTrees{
                     for(int i=0;i<4;i++){
                         if(r+dx[i]>=0&&r+dx[i]<map.length&&c+dy[i]>=0&&c+dy[i]<map[0].length){
                             if(map[r+dx[i]][c+dy[i]]==TREE){
-                                map[r+dx[i]][c+dy[i]]=FIRE;
+                                mapcopy[r+dx[i]][c+dy[i]]=FIRE;
                             }
                         }
                     }
-                    map[r][c]=ASH;
+                    mapcopy[r][c]=ASH;
                 }
             }
         }
+        map = mapcopy;
     }
 
     public void start(){
@@ -148,8 +156,8 @@ public class BurnTrees{
         BurnTrees b = new BurnTrees(WIDTH,HEIGHT,DENSITY);
 
 
-        //System.out.println(b.animate(DELAY));//animate all screens and print the final answer
-        System.out.println(b.outputAll());//print all screens and the final answer
+        System.out.println(b.animate(DELAY));//animate all screens and print the final answer
+        //System.out.println(b.outputAll());//print all screens and the final answer
     }
 
 
