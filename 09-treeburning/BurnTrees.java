@@ -1,7 +1,9 @@
 import java.util.*;
 public class BurnTrees{
     private int[][]map;
+    private int[][]mapcopy;
     private int ticks;
+    private Frontier fires;
     private static int TREE = 2;
     private static int FIRE = 1;
     private static int ASH = 3;
@@ -16,65 +18,53 @@ public class BurnTrees{
 
     public BurnTrees(int width,int height, double density){
         map = new int[height][width];
-        for(int r=0; r<map.length; r++ )
-        for(int c=0; c<map[r].length; c++ )
-        if(Math.random() < density)
-        map[r][c]=2;
+        mapcopy = new int[height][width];
+        fires = new Frontier();
+        for(int r=0; r<map.length; r++ ){
+            for(int c=0; c<map[r].length; c++ ){
+                if(Math.random() < density){
+                    map[r][c]=2;
+                    mapcopy[r][c]=2;
+                }
+            }
+        }
         ticks = 0;
         start();//set the left column on fire.
     }
 
     public boolean done(){
-        int[] dx = {0, -1, 0, 1};
-        int[] dy = {1, 0, -1, 0};
-        for(int r=0;r<map.length;r++){
-            for(int c=0;c<map[r].length;c++){
-                if(map[r][c]==FIRE){
-                    for(int i=0;i<4;i++){
-                        if(r+dx[i]>=0&&r+dx[i]<map.length&&c+dy[i]>=0&&c+dy[i]<map[0].length){
-                            if(map[r+dx[i]][c+dy[i]]==TREE){
-                                return false;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return true;
+        return fires.size()==0;
     }
 
     public void tick(){
-        int[][]mapcopy=new int[map.length][map[0].length];
         ticks++;
-        for(int i=0;i<map.length;i++){
-            for(int j=0;j<map[0].length;j++){
-                mapcopy[i][j]=map[i][j];
-            }
-        }
         int[] dx = {0, -1, 0, 1};
         int[] dy = {1, 0, -1, 0};
-        for(int c=0;c<map[0].length;c++){
-            for(int r=0;r<map.length;r++){
-                if(map[r][c]==FIRE){
-                    for(int i=0;i<4;i++){
-                        if(r+dx[i]>=0&&r+dx[i]<map.length&&c+dy[i]>=0&&c+dy[i]<map[0].length){
-                            if(map[r+dx[i]][c+dy[i]]==TREE){
-                                mapcopy[r+dx[i]][c+dy[i]]=FIRE;
-                            }
-                        }
+        int upper = fires.size();
+        for(int ind=0;ind<upper;ind++){
+            int[] coords = fires.remove();
+            int r = coords[0];
+            int c = coords[1];
+            for(int i=0;i<4;i++){
+                if(r+dx[i]>=0&&r+dx[i]<map.length&&c+dy[i]>=0&&c+dy[i]<map[0].length){
+                    if(map[r+dx[i]][c+dy[i]]==TREE){
+                        fires.add(new int[]{r+dx[i],c+dy[i]});
+                        mapcopy[r+dx[i]][c+dy[i]]=FIRE;
                     }
-                    mapcopy[r][c]=ASH;
                 }
             }
+            mapcopy[r][c]=ASH;
         }
         map = mapcopy;
     }
 
     public void start(){
-        ticks=1;
+        ticks=0;
         for(int i = 0; i < map.length; i++){
             if(map[i][0]==TREE){
                 map[i][0]=FIRE;
+                mapcopy[i][0]=FIRE;
+                fires.add(new int[]{i,0});
             }
         }
     }
@@ -155,8 +145,8 @@ public class BurnTrees{
         }
         BurnTrees b = new BurnTrees(WIDTH,HEIGHT,DENSITY);
 
-
-        System.out.println(b.animate(DELAY));//animate all screens and print the final answer
+        System.out.println(b.run());
+        //System.out.println(b.animate(DELAY));//animate all screens and print the final answer
         //System.out.println(b.outputAll());//print all screens and the final answer
     }
 
