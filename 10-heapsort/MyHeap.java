@@ -32,15 +32,21 @@ public class MyHeap {
     */
     private static void remove(int[]data,int size){
         int swap = data[0];
-        data[0] = data[data.length-1];
-        data[data.length-1] = swap;
-        for(int i=((data.length-1)/2)-1; i>=0; i--){
-            pushDown(data,data.length-1,i);
+        data[0] = data[size-1];
+        data[size-1] = swap;
+        for(int i=((size-1)/2)-1; i>=0; i--){
+            pushDown(data,size-1,i);
         }
     }
 
     /*Sort the provided array
     *@param data is the array to be sorted
     */
-    public static void heapsort(int[]data)//We will discuss this next time!:
+    public static void heapsort(int[]data){
+        int last = data.length-1;
+        for(int i=0;i<data.length;i++){
+            remove(data,last);
+            last--;
+        }
+    }//We will discuss this next time!:
 }
