@@ -26,28 +26,19 @@ public class MyHeap {
         }
     }
 
-    /*Swap the root node with the element at the provided index.
-    *Then push the new root down, but not past the index that it swapped with.
-    *@precondition: size is between 0 and data.length inclusive.
-    */
     public static void remove(int[]data,int size){
         if(size>0){
             int swap = data[0];
             data[0] = data[size-1];
             data[size-1] = swap;
         }
-        for(int i=((size-1)/2)-1; i>=0; i--){
-            pushDown(data,size-1,i);
-        }
+        pushDown(data,size-1,0);
     }
 
-    /*Sort the provided array
-    *@param data is the array to be sorted
-    */
     public static void heapsort(int[]data){
         buildHeap(data);
         for(int i=data.length;i>=0;i--){
             remove(data,i);
         }
-    }//We will discuss this next time!:
+    }
 }
