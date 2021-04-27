@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 
 public class MyHeap {
-    public static void pushDown(int[]data, int size, int index) {
+    private static void pushDown(int[]data, int size, int index) {
         int l = 2*index+1;
         int r = 2*index+2;
         int big = index;
@@ -20,13 +20,13 @@ public class MyHeap {
         }
     }
 
-    public static void buildHeap(int[]data) {
+    private static void buildHeap(int[]data) {
         for(int i=(data.length/2)-1; i>=0; i--){
             pushDown(data,data.length,i);
         }
     }
 
-    public static void remove(int[]data,int size){
+    private static void remove(int[]data,int size){
         if(size>0){
             int swap = data[0];
             data[0] = data[size-1];
