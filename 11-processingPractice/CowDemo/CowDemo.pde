@@ -17,8 +17,19 @@ void draw() {
     if(c.colliding == true && c.selected == true){
       c.move();
       c.c = color(255,0,0,40);
+      fill(255);
+      ellipse(c.x,c.y,20,20);
+      fill(0);
+      ellipse(c.x,c.y,10,10);
+      text(c.x + ", " + c.y, c.x, c.y);
     } else if(c.colliding == true){
       c.c = color(255,0,0,40);
+    } else if(c.selected == true){
+      fill(255);
+      ellipse(c.x,c.y,20,20);
+      fill(0);
+      ellipse(c.x,c.y,10,10);
+      text(c.x + ", " + c.y, c.x+c.radius, c.y);
     } else {
       c.c = color(0,255,0);
     }
