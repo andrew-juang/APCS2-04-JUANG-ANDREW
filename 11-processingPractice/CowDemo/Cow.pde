@@ -1,6 +1,6 @@
 public class Cow {
   float x, y, dx, dy, radius;
-  color c;
+  color c, stored;
   boolean colliding, selected;
   Cow(float rad, float x, float y, float dx, float dy) {
     radius = rad;
@@ -11,6 +11,7 @@ public class Cow {
     colliding = false;
     selected = false;
     c = color(random(255),random(255),random(255));
+    stored = c;
   }
   
   Cow() {

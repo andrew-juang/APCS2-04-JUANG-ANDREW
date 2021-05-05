@@ -4,7 +4,7 @@ void setup() {
   frameRate(30);
   size(1000, 800);
   particles = new ArrayList<Cow>();
-  for (int i = 0; i < 100; i++)
+  for (int i = 0; i < 50; i++)
     particles.add(new Cow());
 }
 
@@ -20,6 +20,7 @@ void draw() {
       c.c = color(255,0,0,40);
       
       fill(0);
+      text(c.dx + ", " + c.dy,c.x+c.radius,c.y);
       ellipse(c.x+c.radius/(2*(float)Math.sqrt(2)), c.y-c.radius/(2*(float)Math.sqrt(2)), c.radius/3, c.radius/3);
       ellipse(c.x-c.radius/(2*(float)Math.sqrt(2)), c.y-c.radius/(2*(float)Math.sqrt(2)), c.radius/3, c.radius/3);
       noFill();
@@ -29,6 +30,7 @@ void draw() {
       c.c = color(255,0,0,40);
     } else if(c.selected == true){
       fill(0);
+      text(c.dx + ", " + c.dy,c.x+c.radius,c.y);
       ellipse(c.x+c.radius/(2*(float)Math.sqrt(2)), c.y-c.radius/(2*(float)Math.sqrt(2)), c.radius/3, c.radius/3);
       ellipse(c.x-c.radius/(2*(float)Math.sqrt(2)), c.y-c.radius/(2*(float)Math.sqrt(2)), c.radius/3, c.radius/3);
       noFill();
@@ -36,7 +38,7 @@ void draw() {
       arc(c.x, c.y, c.radius*0.95, c.radius*0.95, PI*1/6, PI*5/6);
     }
     if(c.colliding == false){
-      c.c = color(0,255,0);
+      c.c = c.stored;
     }
   }
   fill(0);
