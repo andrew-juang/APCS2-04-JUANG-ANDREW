@@ -1,9 +1,10 @@
 ArrayList<Cow> particles;
+
 void setup() {
   frameRate(30);
   size(1000, 800);
   particles = new ArrayList<Cow>();
-  for (int i = 0; i < 10; i++)
+  for (int i = 0; i < 100; i++)
     particles.add(new Cow());
 }
 
@@ -17,20 +18,24 @@ void draw() {
     if(c.colliding == true && c.selected == true){
       c.move();
       c.c = color(255,0,0,40);
-      fill(255);
-      ellipse(c.x,c.y,20,20);
+      
       fill(0);
-      ellipse(c.x,c.y,10,10);
-      text(c.x + ", " + c.y, c.x, c.y);
+      ellipse(c.x+c.radius/(2*(float)Math.sqrt(2)), c.y-c.radius/(2*(float)Math.sqrt(2)), c.radius/3, c.radius/3);
+      ellipse(c.x-c.radius/(2*(float)Math.sqrt(2)), c.y-c.radius/(2*(float)Math.sqrt(2)), c.radius/3, c.radius/3);
+      noFill();
+      stroke(1);
+      arc(c.x, c.y, c.radius*0.95, c.radius*0.95, PI*1/6, PI*5/6);;
     } else if(c.colliding == true){
       c.c = color(255,0,0,40);
     } else if(c.selected == true){
-      fill(255);
-      ellipse(c.x,c.y,20,20);
       fill(0);
-      ellipse(c.x,c.y,10,10);
-      text(c.x + ", " + c.y, c.x+c.radius, c.y);
-    } else {
+      ellipse(c.x+c.radius/(2*(float)Math.sqrt(2)), c.y-c.radius/(2*(float)Math.sqrt(2)), c.radius/3, c.radius/3);
+      ellipse(c.x-c.radius/(2*(float)Math.sqrt(2)), c.y-c.radius/(2*(float)Math.sqrt(2)), c.radius/3, c.radius/3);
+      noFill();
+      stroke(1);
+      arc(c.x, c.y, c.radius*0.95, c.radius*0.95, PI*1/6, PI*5/6);
+    }
+    if(c.colliding == false){
       c.c = color(0,255,0);
     }
   }
